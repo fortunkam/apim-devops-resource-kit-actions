@@ -14,4 +14,4 @@ runs:
       shell: bash
       run: |
         apim-templates extract --extractorConfig ${{inputs.configFile}}
-      working-directory: ${{input.workingDirectory}}
+      working-directory: ${{inputs.workingDirectory}}

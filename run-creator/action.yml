@@ -14,6 +14,6 @@ runs:
       shell: bash
       run: |
         apim-templates create --configFile ${{inputs.configFile}}
-      working-directory: ${{input.workingDirectory}}
+      working-directory: ${{inputs.workingDirectory}}
 
 
