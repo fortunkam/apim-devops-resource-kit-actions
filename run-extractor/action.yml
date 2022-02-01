@@ -4,6 +4,9 @@ inputs:
   configFile:  
     description: 'The Extractor config json file'
     required: true
+  workingDirectory:
+    description: 'The working directory for the config file'
+    required: true
 runs:
   using: "composite"
   steps:
@@ -11,3 +14,4 @@ runs:
       shell: bash
       run: |
         apim-templates extract --extractorConfig ${{inputs.configFile}}
+      working-directory: ${{input.workingDirectory}}
