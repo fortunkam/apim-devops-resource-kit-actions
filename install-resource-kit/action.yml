@@ -1,13 +1,20 @@
 name: 'InstallResourceKit'
 description: 'Install the APIM DevOps Resource Kit'
 inputs:
-  releaseVersion:  # id of input
+  creds:  
+    description: 'Azure Credentials, typically stored in a secret'
+    required: true
+  releaseVersion:  
     description: 'The APIM DevOps Resource Kit version'
     required: true
     default: '0.7'
 runs:
   using: "composite"
   steps:
+    - name: Azure Login
+      uses: azure/login@v1
+      with:
+        creds: ${{ inputs.creds }}
     - name: Download and extract APIM Devops Resource Kit Release
       shell: bash
       run: |
