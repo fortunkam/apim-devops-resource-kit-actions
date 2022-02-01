@@ -1,0 +1,15 @@
+name: 'RunCreator'
+description: 'Run the APIM DevOps Resource Kit Creator Tool'
+inputs:
+  configFile:  
+    description: 'The Creator Template yaml file'
+    required: true
+runs:
+  using: "composite"
+  steps:
+    - name: Run the Creator Tool
+      shell: bash
+      run: |
+        apim-templates create --configFile ${{inputs.configFile}}
+
+

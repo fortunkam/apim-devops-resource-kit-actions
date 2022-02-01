@@ -1,0 +1,13 @@
+name: 'RunExtractor'
+description: 'Run the APIM DevOps Resource Kit Extractor Tool'
+inputs:
+  configFile:  
+    description: 'The Extractor config json file'
+    required: true
+runs:
+  using: "composite"
+  steps:
+    - name: Run the Extractor Tool
+      shell: bash
+      run: |
+        apim-templates extract --extractorConfig ${{inputs.configFile}}
