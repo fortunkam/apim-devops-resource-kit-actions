@@ -1,0 +1,28 @@
+name: 'InstallResourceKit'
+description: 'Install the APIM DevOps Resource Kit'
+inputs:
+  releaseVersion:  # id of input
+    description: 'The APIM DevOps Resource Kit version'
+    required: true
+    default: '0.7'
+runs:
+  using: "composite"
+  steps:
+    - name: Download and extract APIM Devops Resource Kit Release
+      shell: bash
+      run: |
+        wget "https://github.com/Azure/azure-api-management-devops-resource-kit/archive/refs/tags/v${{inputs.releaseVersion}}.tar.gz" && tar xvzf "v${{inputs.releaseVersion}}.tar.gz" && rm "v${{inputs.releaseVersion}}.tar.gz"
+    - uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: '3.1.x'
+        include-prerelease: true
+    - name: Build and Install Resource Kit as a global tool
+      shell: bash
+      run: |
+        dotnet restore
+        dotnet build ./apimtemplate.csproj --no-restore
+        dotnet pack -c Release
+        dotnet tool install -g --add-source ./bin/Release apimtemplate
+      working-directory: "./azure-api-management-devops-resource-kit-${{inputs.releaseVersion}}/src/APIM_ARMTemplate/apimtemplate"
+
+
